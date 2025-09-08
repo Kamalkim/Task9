@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Marks Filter & Reduce Demo</title>
+</head>
+<body>
+  <h2>Filter marks ≥ 90</h2>
+  <pre id="marksOut"></pre>
+
+  <h2>Sum & Product of 1..n (using reduce)</h2>
+  <form id="calcForm">
+    <input id="n" type="number" min="1" placeholder="Enter n" required />
+    <button>Compute</button>
+  </form>
+  <pre id="numOut"></pre>
+
+  <script>
+    // --- Task 1: filter 90+ marks ---
+    const marks = [85, 92, 77, 90, 96, 88, 99]; // sample data
+    const top90 = marks.filter(m => m >= 90);
+    document.getElementById('marksOut').textContent =
+      `All marks: ${marks.join(", ")}\n90+ only: ${top90.join(", ")}`;
+
+    // --- Task 2: build 1..n and reduce to sum & product ---
+    document.getElementById('calcForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const n = parseInt(document.getElementById('n').value, 10);
+      if (!Number.isFinite(n) || n < 1) {
+        numOut.textContent = "Enter a positive integer.";
+        return;
+      }
+      const arr = Array.from({ length: n }, (_, i) => i + 1);
+      const sum = arr.reduce((acc, cur) => acc + cur, 0);
+      const product = arr.reduce((acc, cur) => acc * cur, 1);
+      numOut.textContent = `Array: [${arr.join(", ")}]\nSum: ${sum}\nProduct: ${product}`;
+    });
+  </script>
+</body>
+</html>
